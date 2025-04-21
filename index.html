@@ -1,112 +1,150 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <link rel="icon" href="favicon.ico">
-
-    <meta charset="utf-8">
-    <title>Gabriela Nad</title>
-  </head>
-  <body height: 100vh;>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabi Roblox Expert</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
 
     <style>
-    h1 {
-      font-size: 86px;
-      color: #2c2c2c;
-    }
-    body {
-      background-image:url("pile.jpg");
-      background-color:295;
-    }
-img {
-  border-radius: 50%;
-}
-</style>
-<div height: 100vh;>
-<table>
-  <tr>
-    <td><img src="gabi.jpg" alt="gabrielina slika" height="250"></td>
-    <td><table><tr><td><h1>Gabriela Nađ</h1></tr>
-      <tr><td style="color:#2c2c2c; font-size: 50px; margin-left: 50px;">             Web designer</td></tr>
-    </td>
-</table>
-</div>
-<hr>
-<div class="">
-  <ul>
-    <li><a href="https://kdveden.hr">dječji vrtić</a></li>
-    <li><a href="http://os-igkovacica-vk.skole.hr">osnovna škola I.G.Kovačića</a></li>
-  </ul>
 
-</div>
-<hr>
-<div class="">
-  <table>
-    <tr>
-      <td><img src="koronavirus.jpg" alt="virusad" height="150px"></td>
-      <td>Korona virus je opasan.</td>
-
-    </tr>
-  </table>
-
-
-</div>
-     <div class="box box1">
-        <p>Box 1</p>
-    </div>
-    <div class="box box2">
-        <p>Box 2 </p>
-        <div class="box box3">
-            <p>Box 3</p>
-        </div>
-    </div>
-    <div class="box box4">
-        <p>Box 4</p>
-    </div>
-
-    <style type="text/css">
-        .block1 {
-            width:100%;
-            color: red;
-            
-            border: 1px solid green;
+        .roblox-button {
+            background-color: #ff69b4;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            width: 250px;
+            height:150px;
+            border: none;
+            border-radius: 30px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
+            .roblox-button:hover {
+                background-color: #ff85c1;
+                transform: scale(1.05);
+            }
 
-        .block3 {
-            color: green;
-            width: 40%;
-            border: 2px solid black;
-            position: relative;
-            float: left;
-            font-display: block;
-            font-size: 100%;
-            text-align:center;
+
+
+        body {
+            margin: 0;
+            font-family: sans-serif;
         }
 
-        .block2 {
-            color: blue;
-            width: 40%;
-            border: 2px solid black;
-            position: relative;
-            float: right;
-            font-display: block;
-            font-stretch: extra-expanded;
-            font-size: 120%;
-            text-align: center;
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "sidebar main"
+                "footer footer";
+            grid-template-columns: 0px 1fr;
+            grid-template-rows: 60px 1fr 40px;
+            height: 100vh;
         }
+
+        header {
+            grid-area: header;
+            background-color: #ff69b4; /* Barbie pink */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+            header .title {
+                font-family: 'Roboto', sans-serif;
+                font-weight: 900;
+                font-size: 1.5rem;
+            }
+
+            header img {
+                height: 40px;
+                width: auto;
+            }
+
+        nav {
+            grid-area: sidebar;
+            background-color: #ffffff;
+            padding:0px;
+        }
+
+        main {
+            grid-area: main;
+            background-color: #ffffff;
+            padding: 80px;
+        }
+
+        footer {
+            grid-area: footer;
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+            nav ul li {
+                margin-bottom: 10px;
+            }
+
+                nav ul li a {
+                    text-decoration: none;
+                    color: #333;
+                }
     </style>
-    
-   
-        <div class='block1'>
-            <div class='block2'>Želiš gledati moje savjete</div>
-            <div class='block3'>Želiš pretraživati po kategorijama</div>
-            <p>text</p>
-            <p>text2</p>
-        </div>
+</head>
+<body>
+    <div class="grid-container">
+        <header>
+            <div class="title">Gabi Roblox Expert</div>
+            <img src="roblox-6.svg" alt="Roblox Logo" />
+        </header>
+        
+        <main>
+            
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
+                <button class="roblox-button" onclick="scrollToSection('preporuke')">Gabi preporučuje</button>
+                <button class="roblox-button" onclick="scrollToSection('kategorije')">Pretraga po kategorijama</button>
+            </div>
+
+            <section id="preporuke" style="margin-top: 100px; padding: 20px; background: #ffe4f0; border-radius: 20px;">
+                <h2 style="text-align:center;">🌟 Gabi preporučuje 🌟</h2>
+                <p>Ovdje će biti Gabine preporuke za najzabavnije Roblox igre i iteme!</p>
+            </section>
+
+            <section id="kategorije" style="margin-top: 100px; padding: 20px; background: #ffe4f0; border-radius: 20px;">
+                <h2 style="text-align:center;">🔍 Pretraga po kategorijama</h2>
+                <p>Pretražuj igre, iteme i kolekcije po vrsti, žanru i popularnosti.</p>
+            </section>
 
 
+        </main>
+        <footer>&copy; 2025 Gabi's Roblox World</footer>
+    </div>
+    <script>
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
 
-
-
-  </body>
+</body>
 </html>
+
+
+
