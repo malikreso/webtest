@@ -8,6 +8,10 @@
 
     <style>
 
+        * {
+  box-sizing: border-box;
+}
+
         .roblox-button {
             background-color: #ff69b4;
             color: white;
@@ -34,6 +38,9 @@
         body {
             margin: 0;
             font-family: sans-serif;
+            max-width: 100%;
+              overflow-x: hidden; /* Sprječava horizontalno skrolanje */
+            
         }
 
         .grid-container {
@@ -104,6 +111,39 @@
                     text-decoration: none;
                     color: #333;
                 }
+@media (max-width: 600px) {
+  .roblox-button {
+    width: 100%;
+    max-width: 90%;
+  }
+
+  .grid-container {
+    grid-template-areas:
+      "header"
+      "main"
+      "sidebar"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  header img {
+    align-self: flex-end;
+    height: 30px;
+  }
+}
+
+
+
+
+        
     </style>
 </head>
 <body>
