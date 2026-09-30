@@ -1,129 +1,165 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Arbeitsstunden</title>
+```
+<title>Arbeitsstunden</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            margin: 0;
-            padding: 20px;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        padding: 20px;
+    }
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        }
+    .container {
+        max-width: 600px;
+        margin: 30px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    h1 {
+        text-align: center;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
 
-        th {
-            background: #eeeeee;
-        }
+    th {
+        background: #eeeeee;
+        text-align: left;
+    }
 
-        td:last-child,
-        th:last-child {
-            text-align: right;
-        }
+    td:nth-child(2) {
+        text-align: right;
+    }
 
-        .summary {
-            font-weight: bold;
-            background: #f5f5f5;
-        }
-    </style>
+    .summary {
+        font-weight: bold;
+        background: #f5f5f5;
+    }
+
+    .error {
+        color: red;
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+```
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>Arbeitsstunden</h1>
+```
+<h1>Arbeitsstunden</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Datum</th>
-                <th>Stunden</th>
-            </tr>
-        </thead>
+<table>
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Stunden</th>
+        </tr>
+    </thead>
 
-        <tbody id="stunden">
-        </tbody>
-    </table>
+    <tbody id="tabelle">
+    </tbody>
+</table>
+
+<div id="fehler" class="error"></div>
+```
 
 </div>
 
 <script>
 
-fetch("obaveze.txt")
-    .then(response => response.text())
+// =====================================================
+// HIER WIRD DIE DATEI "obaveze.txt" GELADEN
+// Die Datei muss im gleichen Ordner wie index.html liegen
+// =====================================================
+
+const datei = "obaveze.txt";
+
+fetch(datei)
+    .then(response => {
+
+        if (!response.ok) {
+            throw new Error("Datei obaveze.txt wurde nicht gefunden.");
+        }
+
+        return response.text();
+    })
+
     .then(text => {
 
-        const lines = text.trim().split("\n");
-        const tbody = document.getElementById("stunden");
+        const zeilen = text.split(/\r?\n/);
 
-        lines.forEach(line => {
+        const tabelle = document.getElementById("tabelle");
 
-            line = line.trim();
+        zeilen.forEach(zeile => {
 
-            if (line === "") {
+            zeile = zeile.trim();
+
+            // Leere Zeilen überspringen
+            if (zeile === "") {
                 return;
             }
 
-            const parts = line.split("|");
+            // Die beiden Werte werden am Zeichen | getrennt
+            const teile = zeile.split("|");
 
-            if (parts.length < 2) {
+            if (teile.length !== 2) {
                 return;
             }
 
-            const left = parts[0].trim();
-            const right = parts[1].trim();
+            const ersteSpalte = teile[0].trim();
+            const zweiteSpalte = teile[1].trim();
 
-            const row = document.createElement("tr");
+            const tr = document.createElement("tr");
 
-            if (left === "INSGESAMT" || left === "ERLEDIGT") {
-                row.className = "summary";
+            // INSGESAMT und ERLEDIGT werden hervorgehoben
+            if (
+                ersteSpalte.toUpperCase() === "INSGESAMT" ||
+                ersteSpalte.toUpperCase() === "ERLEDIGT"
+            ) {
+                tr.className = "summary";
             }
 
-            const dateCell = document.createElement("td");
-            const hoursCell = document.createElement("td");
+            const datum = document.createElement("td");
+            const stunden = document.createElement("td");
 
-            dateCell.textContent = left;
-            hoursCell.textContent = right;
+            datum.textContent = ersteSpalte;
+            stunden.textContent = zweiteSpalte;
 
-            row.appendChild(dateCell);
-            row.appendChild(hoursCell);
+            tr.appendChild(datum);
+            tr.appendChild(stunden);
 
-            tbody.appendChild(row);
+            tabelle.appendChild(tr);
         });
 
     })
+
     .catch(error => {
 
-        document.getElementById("stunden").innerHTML =
-            '<tr><td colspan="2">Fehler beim Laden der Daten.</td></tr>';
+        document.getElementById("fehler").textContent =
+            "Fehler: " + error.message;
 
     });
 
